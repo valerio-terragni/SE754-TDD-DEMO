@@ -28,7 +28,7 @@ import static org.mockito.ArgumentMatchers.anyString;
  * - A user should be able to set a password if it does contains her/his name [POSITIVE]
  * - A user should not be able to set a password if contains her/his name [NEGATIVE]
  */
-public class PasswordVerifierTest {
+public class PasswordCheckerTest {
 
 
 }
