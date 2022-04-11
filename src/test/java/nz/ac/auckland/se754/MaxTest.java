@@ -13,4 +13,11 @@ public class MaxTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void test_max_should_return_30(){
+        int expected = 30;
+        int actual = Max.getMax(30,20);
+        assertEquals(expected, actual);
+    }
+
 }
