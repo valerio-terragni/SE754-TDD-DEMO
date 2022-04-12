@@ -63,11 +63,20 @@ public class PasswordCheckerTest {
     }
 
     @Test
-    public void when_passwordDoesContainsName_thenSetSuccessful(){
+    public void when_passwordDoesNotContainsName_thenSetSuccessful(){
 
         boolean result = checker.checkPasswordAndSet("12345678910");
         assertTrue(result);
         Mockito.verify(user, Mockito.times(1)).setPassword(anyString());
+
+    }
+
+    @Test
+    public void when_passwordDoesContainsName_thenSetUnSuccessful(){
+
+        boolean result = checker.checkPasswordAndSet("valerio123");
+        assertFalse(result);
+        Mockito.verify(user, Mockito.never()).setPassword(anyString());
 
     }
 
