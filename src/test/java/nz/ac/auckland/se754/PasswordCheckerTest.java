@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 
@@ -38,6 +39,14 @@ public class PasswordCheckerTest {
     boolean result = checker.checkPasswordAndSet("123456789");
     assertTrue(result);
 }
+
+    @Test
+    public void when_passwordlesssThan8characters_thenSetUnSuccessful(){
+        User user = Mockito.mock(User.class);
+        PasswordChecker checker = new PasswordChecker(user);
+        boolean result = checker.checkPasswordAndSet("hello");
+        assertFalse(result);
+    }
 
 
 }
