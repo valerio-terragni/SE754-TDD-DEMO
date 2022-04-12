@@ -31,11 +31,22 @@ import static org.mockito.ArgumentMatchers.anyString;
  * - A user should not be able to set a password if contains her/his name [NEGATIVE]
  */
 public class PasswordCheckerTest {
+    User user;
+    DataBase db;
+    PasswordChecker checker;
+
+    @BeforeEach
+    public void setUp(){
+        user = Mockito.mock(User.class);
+       db = Mockito.mock(DataBase.class);
+       checker = new PasswordChecker(user,db);
+
+    }
+
 
     @Test
     public void when_passwordAtLeast8characters_thenSetSuccessful(){
-    User user = Mockito.mock(User.class);
-    PasswordChecker checker = new PasswordChecker(user);
+
     boolean result = checker.checkPasswordAndSet("123456789");
     assertTrue(result);
     Mockito.verify(user, Mockito.times(1)).setPassword("123456789");
@@ -43,8 +54,7 @@ public class PasswordCheckerTest {
 
     @Test
     public void when_passwordlesssThan8characters_thenSetUnSuccessful(){
-        User user = Mockito.mock(User.class);
-        PasswordChecker checker = new PasswordChecker(user);
+
         boolean result = checker.checkPasswordAndSet("hello");
         assertFalse(result);
         Mockito.verify(user, Mockito.never()).setPassword(anyString());
@@ -53,9 +63,7 @@ public class PasswordCheckerTest {
 
     @Test
     public void when_passwordDoesContainsName_thenSetSuccessful(){
-        User user = Mockito.mock(User.class);
-        DataBase db = Mockito.mock(Database.class);
-        PasswordChecker checker = new PasswordChecker(user, db);
+
         Mockito.when(db.getName(user)).thenReturn("valerio");
         boolean result = checker.checkPasswordAndSet("12345678910");
         assertTrue(result);
