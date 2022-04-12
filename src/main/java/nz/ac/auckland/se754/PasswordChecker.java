@@ -4,7 +4,8 @@ public class PasswordChecker {
 
     public PasswordChecker(User user) {
     }
-      public boolean checkPasswordAndSet(String pwd){
-          return false;
-        }
+
+    public boolean checkPasswordAndSet(String pwd){
+          return true;
+    }
 }
