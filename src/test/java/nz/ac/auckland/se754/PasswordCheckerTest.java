@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 
 /**
@@ -25,10 +27,57 @@ import static org.mockito.ArgumentMatchers.anyString;
  * ACs
  * - A user should be able to set a password of at least 8 characters [POSITIVE]
  * - A user should not be able to set a password of less than 8 characters [NEGATIVE]
- * - A user should be able to set a password if it does contains her/his name [POSITIVE]
+ * - A user should be able to set a password if it does not contains her/his name [POSITIVE]
  * - A user should not be able to set a password if contains her/his name [NEGATIVE]
  */
 public class PasswordCheckerTest {
+    User user;
+    DataBase db;
+    PasswordChecker checker;
 
+    @BeforeEach
+    public void setUp(){
+        user = Mockito.mock(User.class);
+       db = Mockito.mock(DataBase.class);
+       checker = new PasswordChecker(user,db);
+        Mockito.when(db.getName(user)).thenReturn("valerio");
+
+    }
+
+
+    @Test
+    public void when_passwordAtLeast8characters_thenSetSuccessful(){
+
+    boolean result = checker.checkPasswordAndSet("123456789");
+    assertTrue(result);
+    Mockito.verify(user, Mockito.times(1)).setPassword("123456789");
+}
+
+    @Test
+    public void when_passwordlesssThan8characters_thenSetUnSuccessful(){
+
+        boolean result = checker.checkPasswordAndSet("hello");
+        assertFalse(result);
+        Mockito.verify(user, Mockito.never()).setPassword(anyString());
+
+    }
+
+    @Test
+    public void when_passwordDoesNotContainsName_thenSetSuccessful(){
+
+        boolean result = checker.checkPasswordAndSet("12345678910");
+        assertTrue(result);
+        Mockito.verify(user, Mockito.times(1)).setPassword(anyString());
+
+    }
+
+    @Test
+    public void when_passwordDoesContainsName_thenSetUnSuccessful(){
+
+        boolean result = checker.checkPasswordAndSet("valerio123");
+        assertFalse(result);
+        Mockito.verify(user, Mockito.never()).setPassword(anyString());
+
+    }
 
 }
