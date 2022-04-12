@@ -24,7 +24,7 @@ import static org.mockito.ArgumentMatchers.anyString;
  *
  * ACs
  * - A user should be able to set a password of at least 8 characters [POSITIVE]
- * - A user should not be able to set a password of at least 8 characters [NEGATIVE]
+ * - A user should not be able to set a password of less than 8 characters [NEGATIVE]
  * - A user should be able to set a password if it does contains her/his name [POSITIVE]
  * - A user should not be able to set a password if contains her/his name [NEGATIVE]
  */
