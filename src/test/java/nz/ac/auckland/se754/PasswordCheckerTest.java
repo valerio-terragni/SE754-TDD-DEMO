@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 
 /**
@@ -29,6 +30,14 @@ import static org.mockito.ArgumentMatchers.anyString;
  * - A user should not be able to set a password if contains her/his name [NEGATIVE]
  */
 public class PasswordCheckerTest {
+
+    @Test
+    public void when_passwordAtLeast8characters_thenSetSuccessful(){
+    User user = Mockito.mock(User.class);
+    PasswordChecker checker = new PasswordChecker(user);
+    boolean result = checker.checkPasswordAndSet("123456789");
+    assertTrue(result);
+}
 
 
 }
