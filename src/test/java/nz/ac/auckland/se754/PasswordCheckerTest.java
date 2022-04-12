@@ -27,7 +27,7 @@ import static org.mockito.ArgumentMatchers.anyString;
  * ACs
  * - A user should be able to set a password of at least 8 characters [POSITIVE]
  * - A user should not be able to set a password of less than 8 characters [NEGATIVE]
- * - A user should be able to set a password if it does contains her/his name [POSITIVE]
+ * - A user should be able to set a password if it does not contains her/his name [POSITIVE]
  * - A user should not be able to set a password if contains her/his name [NEGATIVE]
  */
 public class PasswordCheckerTest {
@@ -51,5 +51,16 @@ public class PasswordCheckerTest {
 
     }
 
+    @Test
+    public void when_passwordDoesContainsName_thenSetSuccessful(){
+        User user = Mockito.mock(User.class);
+        DataBase db = Mockito.mock(Database.class);
+        PasswordChecker checker = new PasswordChecker(user, db);
+        Mockito.when(db.getName(user)).thenReturn("valerio");
+        boolean result = checker.checkPasswordAndSet("12345678910");
+        assertTrue(result);
+        Mockito.verify(user, Mockito.times(1)).setPassword(anyString());
+
+    }
 
 }
