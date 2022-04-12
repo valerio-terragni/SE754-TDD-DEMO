@@ -6,6 +6,9 @@ public class PasswordChecker {
     }
 
     public boolean checkPasswordAndSet(String pwd){
-          return true;
+        if(pwd.length() >= 8) {
+            return true;
+        }
+        return false;
     }
 }
