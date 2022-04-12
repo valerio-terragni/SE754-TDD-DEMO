@@ -38,6 +38,7 @@ public class PasswordCheckerTest {
     PasswordChecker checker = new PasswordChecker(user);
     boolean result = checker.checkPasswordAndSet("123456789");
     assertTrue(result);
+    Mockito.verify(user, Mockito.times(1)).setPassword("123456789");
 }
 
     @Test
@@ -46,6 +47,8 @@ public class PasswordCheckerTest {
         PasswordChecker checker = new PasswordChecker(user);
         boolean result = checker.checkPasswordAndSet("hello");
         assertFalse(result);
+        Mockito.verify(user, Mockito.never()).setPassword(anyString());
+
     }
 
 
