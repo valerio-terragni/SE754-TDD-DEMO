@@ -40,6 +40,7 @@ public class PasswordCheckerTest {
         user = Mockito.mock(User.class);
        db = Mockito.mock(DataBase.class);
        checker = new PasswordChecker(user,db);
+        Mockito.when(db.getName(user)).thenReturn("valerio");
 
     }
 
@@ -64,7 +65,6 @@ public class PasswordCheckerTest {
     @Test
     public void when_passwordDoesContainsName_thenSetSuccessful(){
 
-        Mockito.when(db.getName(user)).thenReturn("valerio");
         boolean result = checker.checkPasswordAndSet("12345678910");
         assertTrue(result);
         Mockito.verify(user, Mockito.times(1)).setPassword(anyString());

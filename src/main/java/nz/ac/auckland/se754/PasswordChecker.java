@@ -9,7 +9,7 @@ public class PasswordChecker {
     }
 
     public boolean checkPasswordAndSet(String pwd){
-        if(pwd.length() >= 8 && pwd.contains(db.getName(user))) {
+        if(pwd.length() >= 8 && !pwd.contains(db.getName(user))) {
             user.setPassword(pwd);
             return true;
         }
